@@ -77,16 +77,26 @@ def main():
     display_ascii_title()
     folder_path = get_folder_path()
     file_types = select_file_types()
-    output = run_script(folder_path, file_types)
-    print(output)
+    
+    while True:
+        output = run_script(folder_path, file_types)
+        print(output)
+        
+        # Prompt for copying to clipboard
+        questions = [
+            inquirer.Confirm('copy', message="Copy to clipboard?", default=True)
+        ]
+        answers = inquirer.prompt(questions)
+        if answers['copy']:
+            copy_to_clipboard(output)
 
-    # Prompt for copying to clipboard
-    questions = [
-        inquirer.Confirm('copy', message="Copy to clipboard?", default=True)
-    ]
-    answers = inquirer.prompt(questions)
-    if answers['copy']:
-        copy_to_clipboard(output)
+        # Prompt for running the script again
+        questions = [
+            inquirer.Confirm('repeat', message="Run the script again with the same folder?", default=True)
+        ]
+        answers = inquirer.prompt(questions)
+        if not answers['repeat']:
+            break
 
 if __name__ == "__main__":
     main()
