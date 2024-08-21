@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 import os
 import inquirer
 import pyperclip
@@ -5,11 +7,18 @@ import pyperclip
 def display_ascii_title():
     title = """
                                                                                                        
- ,-----.          ,--.           ,------.            ,--.                         ,--.                 
-'  .--./ ,---.  ,-|  | ,---.     |  .---',--.  ,--.,-'  '-.,--.--. ,--,--. ,---.,-'  '-. ,---. ,--.--. 
-|  |    | .-. |' .-. || .-. :    |  `--,  \  `'  / '-.  .-'|  .--'' ,-.  || .--''-.  .-'| .-. ||  .--' 
-'  '--'\' '-' '\ `-' |\   --.    |  `---. /  /.  \   |  |  |  |   \ '-'  |\ `--.  |  |  ' '-' '|  |    
- `-----' `---'  `---'  `----'    `------''--'  '--'  `--'  `--'    `--`--' `---'  `--'   `---' `--'    
+ ___            ___
+/   \          /   .
+\_   \        /  __/
+ _\   \      /  /__
+ \___  \____/   __/
+     \_       _/
+       | @ @  \_
+       |
+     _/     /
+    /o)  (o/\ \_
+    \_____/ /
+      \____/   
                                                                                                        
     """
     print(title)
@@ -97,6 +106,14 @@ def main():
         answers = inquirer.prompt(questions)
         if not answers['repeat']:
             break
+
+        # Prompt for changing file types
+        questions = [
+            inquirer.Confirm('change_filetypes', message="Change filetypes?", default=False)
+        ]
+        answers = inquirer.prompt(questions)
+        if answers['change_filetypes']:
+            file_types = select_file_types()
 
 if __name__ == "__main__":
     main()
